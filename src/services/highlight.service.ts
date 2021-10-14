@@ -89,9 +89,10 @@ export class HighlightService{
         if(!userHighlights) throw new NoDataError("The user was not found")
 
         let highlightTopics: object[] =[];
-        let highlights: object[] = []
-        let topicData = {topicId: '' , highlights}
+        
         for(let topic of userHighlights.topics){
+            let highlights: object[] = []
+            let topicData = {topicId: '' , highlights}
             topicData.topicId = topic.id 
             for(let highlight of topic.highlights){
                 let single_highlight = {
