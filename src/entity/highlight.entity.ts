@@ -19,8 +19,8 @@ export class Highlight extends BaseEntity{
     @Column({default: 0})
     recalled?: number;
 
-    @Column({default: false})
-    private: boolean 
+    @Column({default: true})
+    public: boolean 
 
     @CreateDateColumn()
     created_at?: Date;

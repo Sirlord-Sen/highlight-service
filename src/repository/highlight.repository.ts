@@ -27,6 +27,14 @@ export class HighlightRepository extends Repository<Highlight>{
         catch (e) { throw new InternalError('Highlight could not be saved')}
     }
 
+    async updateHighlight(highlight:Highlight): Promise<Highlight>{
+        try{
+            const updatedHighlight = await this.highlightRepository.save(highlight)
+            return updatedHighlight
+        }
+        catch(e) { throw new InternalError('Highlight could not be updated')}
+    }
+
     async findAllHighlights(user: findUserInterface): Promise<Highlight[]> {
       try{
           const highlights = await this.highlightRepository.find({where: {user_id: user.user_id}})

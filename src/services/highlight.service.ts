@@ -97,7 +97,8 @@ export class HighlightService{
             for(let highlight of topic.highlights){
                 let single_highlight = {
                     id: highlight.id,
-                    highlight: highlight.highlight
+                    highlight: highlight.highlight,
+                    public: highlight.public
                 }
                 topicData.highlights.push(single_highlight)
             }
@@ -139,10 +140,11 @@ export class HighlightService{
         const highlights = await this.highlightRepository.findOneHighlight(highlight)
 
         if (!highlights) throw new NoDataError('No such Highlight found')
-
+    
         highlights.highlight = highlight.highlight
         highlights.topic_id = highlight.topic_id
-        return await this.highlightRepository.createHighlight(highlights)
+
+        return await this.highlightRepository.updateHighlight(highlights)
     }
 
     public async popHighlight(highlight: highlightPopInterface): Promise<any>{
