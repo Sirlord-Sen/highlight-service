@@ -35,7 +35,7 @@ class Server {
         this.highlightRoutes = new HighlightRoutes(dbConn);
 
         this.app.get('/', (req: Request, res:Response) => { res.json('It worked!')})
-        this.app.use('/api/v1/highlights/:user_id' , this.highlightRoutes.router)
+        this.app.use('/api/v1/highlights' , this.highlightRoutes.router)
     }
 
     public start (){

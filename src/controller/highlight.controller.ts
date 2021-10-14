@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { HighlightService } from '../services/highlight.service'
+import { HighlightService, TopicService } from '../services'
 import { Connection } from 'typeorm'
 import { MicroService } from '../handlers/highlight.handlers'
 
@@ -14,10 +14,12 @@ import {
 
 export class HighlightController{
     private highlightService: HighlightService; 
+    private topicService: TopicService
     private microService: MicroService
 
     constructor(dbConn: Connection){
         this.highlightService = new HighlightService(dbConn)
+        this.topicService = new TopicService(dbConn)
         this.microService = new MicroService()
     }
 
@@ -77,6 +79,17 @@ export class HighlightController{
        }
        catch (err) {res.json(err)}
     }
+
+    // public readTopics = async (req: Request, res: Response) => {
+    //     try{
+    //         const refreshToken = req.headers.authorization?.split('Bearer ')[1].trim()!
+    //         const user_id = (await (this.microService.findUser(refreshToken))).id
+    //         const topics = await this.topicService.readTopics(user_id)
+
+    //         new SuccessResponse('success', topics).send(res)
+    //     }
+    //     catch(err) {res.json(err)}
+    // } 
 
     public popHighlight = async (req: Request, res: Response) => {
         try{
