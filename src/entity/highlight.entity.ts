@@ -6,7 +6,7 @@ import {
     ManyToOne,
     CreateDateColumn
 } from 'typeorm'
-import { Topic, User } from './'
+import { Topic } from './'
 
 @Entity('highlights')
 export class Highlight extends BaseEntity{
@@ -21,6 +21,9 @@ export class Highlight extends BaseEntity{
 
     @Column({default: true})
     public: boolean 
+
+    @Column({default: 0})
+    views: number
 
     @CreateDateColumn()
     created_at?: Date;

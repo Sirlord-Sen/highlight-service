@@ -1,20 +1,19 @@
 import 'reflect-metadata'
 import * as dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
-import { HighlightController } from './controller/highlight.controller'
+import { HighlightRoutes } from './routes/highlight.routes'
 import { createConnection , getConnection } from 'typeorm'
 import { Connection } from '../config/typeorm.config'
 
 
 class Server {
     private app: express.Application
-    private highlightController: HighlightController
+    private highlightRoutes: HighlightRoutes
 
     constructor(){
         dotenv.config()
         this.app = express()
         this.configuration()
-        // this.highlightController = new HighlightController()
         this.middlewares();
         this.routes()  
     }
@@ -31,23 +30,17 @@ class Server {
 
     public async routes(){
         await Connection()
-
         const dbConn = getConnection('studaid')
 
-        this.highlightController = new HighlightController(dbConn);
+        this.highlightRoutes = new HighlightRoutes(dbConn);
 
-        this.app.get('/', (req: Request, res:Response) => {
-            res.json('It worked!')
-        })
-
-        this.app.use('/api/v1/highlights/:user_id' , this.highlightController.router)
+        this.app.get('/', (req: Request, res:Response) => { res.json('It worked!')})
+        this.app.use('/api/v1/highlights/:user_id' , this.highlightRoutes.router)
     }
 
     public start (){
         const port = this.app.get('port')
-        this.app.listen(port, () => {
-            console.log(`Server is running on ${port}`)
-        })
+        this.app.listen(port, () => { console.log(`Server is running on ${port}`) })
     }
 }
 

@@ -1,7 +1,6 @@
-import { Router, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { HighlightService } from '../services/highlight.service'
 import { Connection } from 'typeorm'
-import { upload } from '../middlewares/image.middleware'
 import { MicroService } from '../handlers/highlight.handlers'
 
 import { SuccessResponse } from '../handlers/apiResponse'
@@ -14,15 +13,12 @@ import {
 } from '../dto/highlight.dto'
 
 export class HighlightController{
-    public router: Router;
     private highlightService: HighlightService; 
     private microService: MicroService
 
     constructor(dbConn: Connection){
-        this.router = Router();
         this.highlightService = new HighlightService(dbConn)
         this.microService = new MicroService()
-        this.routes();
     }
 
     public createHighlight = async (
@@ -113,14 +109,5 @@ export class HighlightController{
         catch(err){res.json(err)}
     }
 
-
-    public routes (){
-        this.router.post('/:topic_id', upload, this.createHighlight),
-        this.router.post('/:topic_id/custom_create', this.createCustomHighlight),
-        this.router.get('/', this.readAllHighlights),
-        this.router.get('/:topic_id', this.readTopicHighlight),
-        this.router.get('/single_highlight/pop_highlight', this.popHighlight)
-        this.router.put('/:topic_id/:highlight_id', this.updateHighlight)
-    }
 
 }
