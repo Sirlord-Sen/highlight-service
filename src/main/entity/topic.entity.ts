@@ -1,4 +1,4 @@
-import { Highlight, User } from './'
+import { Highlight, User } from '.'
 import { 
     PrimaryColumn,
     Entity, 

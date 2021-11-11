@@ -11,7 +11,7 @@ export const Connection = async () => {
             username: process.env.DB_USERNAME,
             password: process.env.PASSWORD,
             database: process.env.DB,
-            entities: [ "build/src/entity/**/*.js" ],
+            entities: [ "build/src/main/entity/**/*.js" ],
             synchronize: true,
             name: 'studaid'
         })

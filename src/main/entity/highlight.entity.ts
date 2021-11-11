@@ -6,7 +6,7 @@ import {
     ManyToOne,
     CreateDateColumn
 } from 'typeorm'
-import { Topic } from './'
+import { Topic } from '.'
 
 @Entity('highlights')
 export class Highlight extends BaseEntity{

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { environment } from '../../config/typeorm.config';
+import { environment } from '../../../config/typeorm.config';
 import {
   AuthFailureResponse,
   InternalErrorResponse,

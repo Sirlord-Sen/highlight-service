@@ -1,4 +1,4 @@
-import { Topic, Highlight } from './'
+import { Topic, Highlight } from '.'
 import { 
     PrimaryColumn, 
     Entity, 

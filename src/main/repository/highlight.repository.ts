@@ -12,7 +12,7 @@ export class HighlightRepository extends Repository<Highlight>{
         this.highlightRepository = getConnection('studaid').getRepository(Highlight)
     }
 
-    async createHighlight(highlights:string[]): Promise<Highlight[]> {    
+    async createHighlight(highlights:string[]): Promise<any> {    
         try {
             var result = []
             for (let highlightText of highlights){

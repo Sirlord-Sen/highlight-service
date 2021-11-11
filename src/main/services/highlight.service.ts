@@ -1,6 +1,7 @@
 import { Connection } from 'typeorm'
 import { Highlight, Topic, User } from '../entity'
 import { HighlightRepository, UserRepository, TopicRepository } from '../repository'
+import { pushHighlight } from './logic'
 import { NoDataError, ForbiddenError, InternalError } from '../handlers/apiError'
 import { 
     createHighlightInterface, 
@@ -88,22 +89,7 @@ export class HighlightService{
 
         if(!userHighlights) throw new NoDataError("The user was not found")
 
-        let highlightTopics: object[] =[];
-        
-        for(let topic of userHighlights.topics){
-            let highlights: object[] = []
-            let topicData = {topicId: '' , highlights}
-            topicData.topicId = topic.id 
-            for(let highlight of topic.highlights){
-                let single_highlight = {
-                    id: highlight.id,
-                    highlight: highlight.highlight,
-                    public: highlight.public
-                }
-                topicData.highlights.push(single_highlight)
-            }
-            highlightTopics.push(topicData)
-        }
+        let highlightTopics = pushHighlight(userHighlights)
 
         return {
             userId: user.user_id,
